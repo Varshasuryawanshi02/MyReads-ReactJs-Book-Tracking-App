@@ -9,13 +9,14 @@ export default class BooksApp extends React.Component {
     constructor(args) {
         super(args);
         this.state = {
-            books: []
+            books: [],
+            loading: true,
         }
     }
 
     componentDidMount() {
         BooksAPI.getAll().then(books => {
-            this.setState({ books })
+            this.setState({books: books, loading: false})
         })
     }
 
@@ -30,7 +31,8 @@ export default class BooksApp extends React.Component {
                         } else {
                             return b
                         }
-                    })
+                    }),
+                    loading: false
                 }))
             )
     };
@@ -44,12 +46,23 @@ export default class BooksApp extends React.Component {
         return (
             <div className="app">
                 <Route path="/" exact render={() => (
-                    <BookShelfList
-                        currentlyReading={currentlyReading}
-                        wantToRead={wantToRead}
-                        read={read}
-                        onShelfChange={this.onShelfChange}
-                    />
+                    <div>
+                        <div className="list-books-title">
+                            <h1>myReads: Your Personal Library</h1>
+                        </div>
+                        {
+                            !state.loading ? (
+                                <BookShelfList
+                                    currentlyReading={currentlyReading}
+                                    wantToRead={wantToRead}
+                                    read={read}
+                                    onShelfChange={this.onShelfChange}
+                                />
+                            ) : (
+                                <div className="loader"/>
+                            )
+                        }
+                    </div>
                 )}/>
                 <Route path="/search" render={({history}) => (
                     <SearchBook
