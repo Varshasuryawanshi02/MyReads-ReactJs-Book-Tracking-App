@@ -5,8 +5,13 @@
 import React, {Component} from 'react';
 
 export default class Book extends Component {
+    onBookShelfChange = (e) => {
+        const shelf = e.target.value;
+        this.props.onShelfChange(this.props.book, shelf);
+    };
+
     render() {
-        const {title, author, imageUrl} = this.props;
+        const {book} = this.props;
 
         return (
             <div className="book">
@@ -14,10 +19,10 @@ export default class Book extends Component {
                     <div className="book-cover" style={{
                         width: 128,
                         height: 193,
-                        backgroundImage: `url("${ imageUrl }")`
+                        backgroundImage: `url("${ book.imageLinks.thumbnail }")`
                     }}/>
                     <div className="book-shelf-changer">
-                        <select>
+                        <select onChange={this.onBookShelfChange} defaultValue={book.shelf}>
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -26,8 +31,8 @@ export default class Book extends Component {
                         </select>
                     </div>
                 </div>
-                <div className="book-title">{title}</div>
-                <div className="book-authors">{author}</div>
+                <div className="book-title">{book.title}</div>
+                <div className="book-authors">{book.authors}</div>
             </div>);
     }
 }

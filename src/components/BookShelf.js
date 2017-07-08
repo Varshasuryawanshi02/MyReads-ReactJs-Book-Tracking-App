@@ -7,17 +7,15 @@ import Book from "./Book.js";
 
 export default class BookShelf extends Component {
     render() {
-        const {shelfTitle, bookList} = this.props;
-
         return (
             <div className="bookshelf">
-                <h2 className="bookshelf-title">{shelfTitle}</h2>
+                <h2 className="bookshelf-title">{this.props.shelfTitle}</h2>
                 <div className="bookshelf-books">
                     <ol className="books-grid">
                         {
-                            bookList.map((book, index) => {
-                                <li key={index}>
-                                    <Book title={book.title} author={book.authors} imageUrl={book.coverURL}/>
+                            this.props.bookList.map((book) => {
+                                return <li key={book.id}>
+                                    <Book book={book} onShelfChange={this.props.onShelfChange}/>
                                 </li>
                             })
                         }
