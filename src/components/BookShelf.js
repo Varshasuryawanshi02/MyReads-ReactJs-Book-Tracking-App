@@ -3,11 +3,12 @@
  */
 
 import React, {Component} from 'react';
-import Book from "./Book";
+import Book from "./Book.js";
 
 export default class BookShelf extends Component {
     render() {
         const {shelfTitle, bookList} = this.props;
+
         return (
             <div className="bookshelf">
                 <h2 className="bookshelf-title">{shelfTitle}</h2>
