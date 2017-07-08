@@ -1,4 +1,4 @@
-### myReads: Your Personal Library
+## myReads: Your Personal Library
 This is a simple react app that allow users to search for books and categorize them.
 
 ## Getting Started :
